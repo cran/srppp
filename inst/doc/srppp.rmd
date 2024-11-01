@@ -1,0 +1,362 @@
+---
+title: The Swiss Register of Plant Protection Products as a Relational Data Model
+author: Johannes Ranke
+date: 13 August, 2024 (rebuilt `r Sys.Date()`)
+bibliography: references.bib
+output:
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{The Swiss Register of Plant Protection Products as a Relational Data Model}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, message = FALSE, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(tidy = FALSE, cache = FALSE)
+options(knitr.kable.NA = '')
+```
+
+Since the year 2011, the [Swiss Federal Office of Agriculture
+(FOAG)](https://www.blw.admin.ch) and later the [Federal Food Safety and
+Veterinary Office](https://www.blv.admin.ch), now responsible for the
+authorisation of plant protection products in Switzerland, publish the contents
+of the Swiss Register of Plant Protection Products (SRPPP) on their respective
+websites in a custom format based on the Extensible Markup Language (XML).
+
+In our 
+[group](https://www.agroscope.admin.ch/agroscope/de/home/ueber-uns/organisation/kompetenzbereiche-strategische-forschungsbereiche/pflanzen-pflanzliche-produkte/pflanzenschutzmittel-wirkung-bewertung.html) 
+at Agroscope, different solutions have been used to read in, process and use
+these data. This package offers a fresh approach to directly read in the data 
+into `R`.
+
+The current download location of the latest published XML version of the SRPPP
+is stored in the package as `srppp::srppp_xml_url`. Reading in the current data
+is as simple as
+
+```{r message = FALSE}
+library(srppp)
+current_register <- srppp_dm()
+```
+
+The resulting data object contains a number of related tables with
+information on the authorized products and their uses. The relation
+between those tables is shown below. The identification numbers of the evaluated
+products (`pNbrs`) and the general information associated with them are shown
+in dark blue. The tables defining their composition in terms of the most 
+important ingredients are shown in orange. Tables with information on the 
+authorized uses of the products are shown in dark green. Finally, the tables
+giving names and expiration dates of products and parallel imports as well as
+an identification number for the authorization holder are shown in light blue.
+
+```{r}
+#| fig.height: 9
+#| fig.alt: >
+#|   Diagram showing the relation between the different tables
+#|   (foreign key relationships)
+library(DiagrammeR)
+dm_draw(current_register)
+```
+
+# Substances
+
+At the bottom of the table hierarchy, there is the list of substances.
+For each substance, there is a primary key `pk`, a chemical name based
+on [IUPAC nomenclature](https://iupac.org/what-we-do/nomenclature/), and
+substance names in the official languages of Switzerland. The first 
+four entries out of `r nrow(current_register$substances)` are shown 
+below.
+
+```{r}
+library(knitr)
+current_register$substances |> 
+  select(pk, iupac, substance_de, substance_fr, substance_it) |> 
+  head(n = 4L) |> 
+  kable()
+```
+
+# Products
+
+There are three tables defining the products, `pNbrs`, `products` and
+`ingredients`. The P-Numbers contained in the table `pNbrs` are identifiers of
+product compositions. Products with the same P-Number are considered
+equivalent in terms of efficacy and risks.
+The table `pNbrs` is only there for a technical reason. It simply contains
+a column holding the P-Numbers.
+
+## Unique products (P-Numbers) and their composition
+
+The composition of these products in terms of active substances, 
+additives to declare, synergists and safeners is 
+is defined in the table `ingredients`, giving the
+contents in percent weight per weight (`percent`).
+For liquid products, a content in grams per litre is also given
+(`g_per_L`). If a substance is contained in a form that differs
+from the definition given in the substance table, this is documented in
+the respective additional columns as
+illustrated by the first five rows shown below.
+
+```{r}
+current_register$ingredients |> 
+  select(pNbr, pk, type, percent, g_per_L, ingredient_de, ingredient_fr) |> 
+  head(n = 5L) |> 
+  kable()
+```
+
+The frequency of occurrence of the four different ingredient types 
+is quite different.
+
+
+```{r message = FALSE}
+library(dplyr)
+current_register$ingredients |> 
+  select(pk, type) |> 
+  unique() |> 
+  group_by(type) |> 
+  summarize(n = n()) |> 
+  kable()
+```
+
+Additives to declare are additives that have an effect on
+classification and labelling of the product. All substances
+occurring as synergists or safeners are listed below.
+
+```{r}
+current_register$ingredients |> 
+  left_join(current_register$substances, by = "pk") |>
+  filter(type %in% c("SYNERGIST", "SAFENER")) |>
+  group_by(type, substance_de) |> 
+  summarize(n = n(), .groups = "drop_last") |> 
+  select(type, substance_de, n) |> 
+  arrange(type, substance_de) |> 
+  kable()
+```
+
+Note that the first two lines in the code could also be replaced by
+
+```{r eval = FALSE}
+current_register |> 
+  dm_flatten_to_tbl(ingredients) |> 
+```
+
+which makes use of the foreign key declaration in the data object. 
+However, the more explicit version using `left_join` is probably easier
+to understand.
+
+## Registered products (W-Numbers)
+
+The registered products are identified by
+the so-called W-Numbers. The relation between P-Numbers
+and W-Numbers is illustrated below by showing the first five entries in the
+`products` table.
+
+```{r}
+current_register$products |> 
+  select(-terminationReason) |> 
+  head() |> 
+  kable()
+```
+
+As can be seen in these example entries, several registrations (W-Numbers) of the
+same product type (P-Number) can exist. The W-Numbers without a dash
+(e.g. `18`) are the original registrations, and the ones containing a dash and 
+a trailing number (e.g. `18-1`, `18-2`) are equivalent products with
+sales permissions that have a different legal entity as permission holder.
+
+If the product registration has been revoked, the relevant latest dates
+for selling the product (`soldoutDeadline`) and for use of the product
+(`exhaustionDeadline`) are given in the respective columns.
+
+```{r}
+current_register$products |>
+  filter(exhaustionDeadline != "") |> 
+  select(-terminationReason) |> 
+  head() |> 
+  kable()
+```
+
+```{r echo = FALSE}
+n_pNbrs <- nrow(current_register$pNbrs)
+n_wNbrs <- nrow(current_register$products)
+```
+At the build time of this vignette, there were `r n_wNbrs` product registrations
+for `r n_pNbrs` P-Numbers in the Swiss Register of Plant 
+Protection Products (SRPPP) as published on the website of the Federal Food 
+Safety and Veterinary Office.
+
+## Example code for getting a product composition from a product name
+
+If the name of a product is known, the associated
+P-Numbers and W-Numbers as well as the product composition can be retrieved by a 
+command like the following.
+
+```{r}
+current_register$products |>
+  filter(name == "Plüsstar") |>
+  left_join(current_register$ingredients, by = "pNbr") |>
+  left_join(current_register$substances, by = "pk") |>
+  select(pNbr, name, substance_de, percent, g_per_L) |> 
+  kable()
+```
+
+# Uses
+
+For each product type (P-Number), the registered uses (tagged 
+as `<Indication>` in the XML file) are
+specified in the `uses` table. The use numbers in the column `use_nr`
+are generated while reading in the XML file, in order to be able to refer to 
+each use by a combination of P-Number (`pNbr`) and use number (`use_nr`).
+
+```{r}
+current_register$uses |> 
+  filter(pNbr %in% c(6521L, 7511L) & use_nr < 10) |> 
+  select(pNbr, use_nr, ends_with("dosage"), ends_with("rate"), units_de,
+    waiting_period, time_units_en, application_area_de) |> 
+  head(20) |> 
+  kable()
+```
+
+The columns `min_dosage` and `max_dosage` contain either a range of
+recommended product concentrations in the spraying solution in percent,
+or, if only `min_dosage` is given, the recommended concentration.
+Similarly, if there is a single recommended application rate, it is stored in
+`min_rate`. Only if there is a recommended range of application rates,
+`max_rate` is given as well. The units of the application rate are given
+in the columns starting with `units_`. In addition, a required
+waiting period before harvest can be specified, as well as the application
+area associated with the use.
+
+## Application rates
+
+Application rates in terms of grams of the active 
+substances contained in the products per hectare can be calculated using
+the function
+`application_rate_g_per_ha()` as illustrated in the example below.
+
+In a first step, some `uses` need to be selected and joined with 
+the information in the `ingredients` table. The names of the
+active substances can be joined as well.
+
+```{r}
+example_uses <- current_register$products |> 
+  filter(wNbr == "6168") |>
+  left_join(current_register$uses, by = join_by(pNbr),
+    relationship = "many-to-many") |> 
+  left_join(current_register$ingredients, by = join_by(pNbr),
+    relationship = "many-to-many") |>
+  left_join(current_register$substances, by = join_by(pk)) |>
+  select(pNbr, name, use_nr,
+    min_dosage, max_dosage, min_rate, max_rate, units_de,
+    application_area_de,
+    substance_de, percent, g_per_L) |> 
+  filter(use_nr %in% c(1:5, 12:17))
+
+kable(example_uses)
+```
+
+Then, the application rates can be calculated for these uses as illustrated 
+below.
+
+```{r}
+application_rate_g_per_ha(example_uses) |>
+  select(ai = substance_de, app_area = application_area_de,
+  ends_with("rate"), units_de, rate = rate_g_per_ha) |> 
+  head(n = 14) |> 
+  kable()
+```
+
+
+## Culture forms and cultures
+
+In the current SRPPP versions, there are only two culture forms, greenhouse
+cultivation and field cultivation.
+
+```{r}
+current_register$culture_forms |> 
+  select(starts_with("culture")) |> 
+  unique() |> 
+  kable()
+```
+
+For specific uses, e.g. for uses number `1` and `2` of product "Boxer"
+with W-Number `6168`, the associated culture form and the registered
+cultures can be listed as shown below.
+As each use is typically associated with only one culture form, the
+culture form and the actual cultures can be joined to the use numbers in
+one step.
+
+```{r}
+current_register$products |> 
+  filter(wNbr == "6168") |> 
+  left_join(current_register$uses, by = "pNbr") |> 
+  filter(use_nr %in% 1:2) |> 
+  left_join(current_register$culture_forms, by = c("pNbr", "use_nr")) |> 
+  select(pNbr, use_nr, ends_with("de")) |> 
+  kable()
+```
+
+## Target organisms
+
+The target organisms for each use can be found in the table `pests`. Example
+code for retrieving the target organisms for specific uses is given below.
+
+```{r}
+current_register$pests |> 
+  filter(pNbr == 7105L, use_nr %in% 1:2) |> 
+  select(use_nr, ends_with("de"), ends_with("fr")) |> 
+  kable()
+```
+
+## Unique combinations of cultures and target organisms
+
+In the calculations of mean application rates for the Swiss National Risk 
+Indicator [@korkaric_2022; @korkaric_2023], unique combinations
+of product, culture, and target organism were termed "indications". Note
+that when using this definition of indications, each XML section `<Indication>`
+can describe several indications. The relation between uses 
+(`<Indication>` sections) and indications as defined in the indicator
+project is illustrated below.
+
+```{r}
+culture_pest_combinations <- current_register$uses |> 
+  filter(pNbr == 6521L) |> 
+  left_join(current_register$cultures, by = c("pNbr", "use_nr")) |> 
+  left_join(current_register$pests, by = c("pNbr", "use_nr")) |> 
+  select(pNbr, use_nr, application_area_de, culture_de, pest_de)
+
+kable(culture_pest_combinations)
+```
+
+In this example, there are `r nrow(culture_pest_combinations)` such "indications" 
+for the 15 uses.
+
+## Application comments
+
+Sometimes, use specific comments can be found in the `application_comments` table.
+
+```{r}
+current_register$application_comments |>
+  filter(pNbr == 7105, use_nr %in% 1:2) |> 
+  select(pNbr, use_nr, ends_with("de"), ends_with("fr")) |> 
+  kable()
+```
+
+## Obligations
+
+The use conditions for each use are listed in the table `obligations`. In the 
+following example, the column `sw_runoff_points` is selected in the output, as
+both use authorisations are conditional on risk mitigation for runoff to
+surface water amounting to at least one point.
+
+```{r}
+current_register$obligations |>
+  filter(pNbr == 7105, use_nr %in% 1:2) |> 
+  select(pNbr, use_nr, code, obligation_de, sw_runoff_points) |> 
+  kable()
+```
+
+# References
