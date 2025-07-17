@@ -23,9 +23,9 @@ srppp_xml_get <- function(from, ...)
 #' @rdname srppp_xml_get
 #' @export
 #' @examples
-#' # The current SRPPP as available from the FOAG website
+#' # Try to get the current SRPPP as available from the FOAG website
 #' \donttest{
-#' srppp_cur <- srppp_xml_get()
+#' srppp_cur <- try(srppp_xml_get())
 #' }
 srppp_xml_get.NULL <- function(from, ...)
 {
@@ -79,9 +79,9 @@ srppp_xml_get_from_path <- function(path, from) {
 #' or NULL.
 #' @export
 #' @examples
-#' # Get current list of products
+#' # Try to get current list of products
 #' \donttest{
-#' srppp_xml_get_products()
+#' try(srppp_xml_get_products())
 #' }
 srppp_xml_get_products <- function(srppp_xml = srppp_xml_get(), verbose = TRUE,
   remove_duplicates = TRUE)
@@ -160,7 +160,9 @@ srppp_xml_get_products <- function(srppp_xml = srppp_xml_get(), verbose = TRUE,
             paste0("P-Number ", pNbr, ": Differing product section for W-Number ",
               products$wNbr[node_numbers[[i]]])
           )
-          message(waldo::compare(ref_contents_clean, check_contents_clean))
+          if (verbose) {
+            message(waldo::compare(ref_contents_clean, check_contents_clean))
+          }
         }
       }
     }
@@ -235,9 +237,9 @@ srppp_xml_get_products <- function(srppp_xml = srppp_xml_get(), verbose = TRUE,
 #' in the XML file.
 #' @export
 #' @examples
-#' # Get current list of parallel_imports
+#' # Try to get current list of parallel_imports
 #' \donttest{
-#' srppp_xml_get_parallel_imports()
+#' try(srppp_xml_get_parallel_imports())
 #' }
 srppp_xml_get_parallel_imports <- function(srppp_xml = srppp_xml_get())
 {
@@ -284,7 +286,7 @@ srppp_xml_get_parallel_imports <- function(srppp_xml = srppp_xml_get())
 #' @export
 #' @examples
 #' \donttest{
-#' srppp_xml_get_substances()
+#' try(srppp_xml_get_substances())
 #' }
 srppp_xml_get_substances <- function(srppp_xml = srppp_xml_get()) {
   substance_nodeset <- xml_find_all(srppp_xml, "MetaData[@name='Substance']/Detail")
@@ -312,8 +314,7 @@ srppp_xml_get_substances <- function(srppp_xml = srppp_xml_get()) {
 #' @export
 #' @examples
 #' \donttest{
-#' library(srppp)
-#' srppp_xml_get_ingredients()
+#' try(srppp_xml_get_ingredients())
 #' }
 srppp_xml_get_ingredients <- function(srppp_xml = srppp_xml_get())
 {
@@ -377,7 +378,7 @@ srppp_xml_get_ingredients <- function(srppp_xml = srppp_xml_get())
 #' @export
 #' @examples
 #' \donttest{
-#' srppp_xml_define_use_numbers()
+#' try(srppp_xml_define_use_numbers())
 #' }
 srppp_xml_define_use_numbers <- function(srppp_xml = srppp_xml_get()) {
   use_nodeset <- xml_find_all(srppp_xml, "Products/Product/ProductInformation/Indication")
@@ -399,9 +400,11 @@ srppp_xml_define_use_numbers <- function(srppp_xml = srppp_xml_get()) {
 #' @export
 #' @examples
 #' \donttest{
-#' srppp_xml <- srppp_xml_get()
-#' srppp_xml <- srppp_xml_define_use_numbers(srppp_xml)
-#' srppp_xml_get_uses(srppp_xml)
+#' srppp_xml <- try(srppp_xml_get())
+#' if (!inherits(srppp_xml, "try-error")) {
+#'   srppp_xml <- srppp_xml_define_use_numbers(srppp_xml)
+#'   srppp_xml_get_uses(srppp_xml)
+#' }
 #' }
 srppp_xml_get_uses <- function(srppp_xml = srppp_xml_get()) {
   use_nodeset <- xml_find_all(srppp_xml, "Products/Product[not(contains(@wNbr, '-'))]/ProductInformation/Indication")
@@ -526,17 +529,30 @@ srppp_xml_get_uses <- function(srppp_xml = srppp_xml_get()) {
 #'    articles 18a and 18b of the Federal Act on the Protection of Nature and
 #'    Cultural Heritage) to mitigate spray drift in meters
 #'
-#' @inheritParams srppp_xml_get
+#' @param from A specification of the way to retrieve the XML to be passed to
+#' [srppp_xml_get], or an object of the class 'srppp_xml'
 #' @param remove_duplicates Should duplicates based on wNbrs be removed?
+#' @param verbose Should we give some feedback?
 #' @return A [dm::dm] object with tables linked by foreign keys
 #' pointing to primary keys, i.e. with referential integrity.
+#' Since version 1.1, the returned object has an attribute named 'culture_tree'
+#' of class [data.tree::Node].
 #' @export
 #' @examples
 #' \donttest{ # Avoid NOTE on CRAN caused by checks >5s
 #' library(dplyr, warn.conflicts = FALSE)
 #' library(dm, warn.conflicts = FALSE)
 #'
-#' sr <- srppp_dm()
+#' sr <- try(srppp_dm())
+#'
+#' # Fall back to internal test data if downloading or reading fails
+#' if (inherits(sr, "try-error")) {
+#'   sr <- system.file("testdata/Daten_Pflanzenschutzmittelverzeichnis_2024-12-16.zip",
+#'       package = "srppp") |>
+#'     srppp_xml_get_from_path(from = "2024-12-16") |>
+#'     srppp_dm()
+#' }
+#'
 #' dm_examine_constraints(sr)
 #' dm_draw(sr)
 #'
@@ -582,14 +598,25 @@ srppp_xml_get_uses <- function(srppp_xml = srppp_xml_get()) {
 #'   left_join(sr$application_comments, join_by(pNbr, use_nr)) |>
 #'   select(use_nr, application_comment_de)
 #'
+#' # Illustrate 'obligations' indicating varying effects
+#' sr$obligations |>
+#'   filter(varying_effect) |>
+#'   select(pNbr, use_nr, code, obligation_de)
+#'
 #' }
-srppp_dm <- function(from = srppp_xml_url, remove_duplicates = TRUE) {
+srppp_dm <- function(from = srppp_xml_url, remove_duplicates = TRUE, verbose = TRUE) {
 
-  srppp_xml <- srppp_xml_get(from)
+  if (inherits(from, "srppp_xml")) {
+    srppp_xml <- from
+    from <- attr(srppp_xml, "from")
+  } else {
+    srppp_xml <- srppp_xml_get(from)
+  }
 
   # Tables of products and associated information
   # Duplicates were already removed from the XML, if requested
-  products <- srppp_xml_get_products(srppp_xml, remove_duplicates = remove_duplicates)
+  products <- srppp_xml_get_products(srppp_xml, remove_duplicates = remove_duplicates,
+    verbose = verbose)
   pNbrs <- tibble(pNbr = as.integer(unique(products$pNbr))) |>
     arrange(pNbr)
 
@@ -632,10 +659,37 @@ srppp_dm <- function(from = srppp_xml_url, remove_duplicates = TRUE) {
   # Tables of product ingredients and their concentrations
   substances <- srppp_xml_get_substances(srppp_xml)
   ingredients_no_pNbr <- srppp_xml_get_ingredients(srppp_xml)
-  ingredients <- ingredients_no_pNbr |>
+  ingredients_with_dups <- ingredients_no_pNbr |>
     left_join(products[c("wNbr", "pNbr")], by = "wNbr") |>
     select(pNbr, pk, type, percent, g_per_L, ingredient_de, ingredient_fr, ingredient_it) |>
     arrange(pNbr, pk, type)
+
+  # Several duplicate entries for ingredients are removed below (see github issue #6)
+
+  # - In 2017 and 2018, there are duplicate ingredient entries for oryzalin (pk 276)
+  # in the product Surflan (P-Number 4711). The entry with 48 percent is apparently
+  # wrong, as in the last occurrence of the product in 2022, 40.5 percent are specified
+  # That also makes sense, because 48 percent would mean a density of exactly 1 L/kg
+  # (the concentration is 480 g/L) which is unlikely.
+  # - Product with P-Number 8755 contains an erroneous duplicated ingredient
+  # entry for active ingredient 950 in 2019 and 2020, with an entry "70.9 g / Dose"
+  # in 'ingredients_de'.
+  # - Completely equal lines for P-Numbers 8122 and 3562
+
+  ingredients <- ingredients_with_dups |>
+    filter(!(pNbr == 4711 & pk == 276 & percent == 48)) |>
+    filter(!(pNbr == 8755 & pk == 950 & ingredient_de == "70.9 g / Dose")) |>
+    unique() # for P-Numbers 8122 and 3562
+
+  ingredient_dups <- ingredients |>
+    group_by(pNbr, pk) |>
+    summarise(n = n(), .groups = "drop") |>
+    filter(n > 1)
+  if (nrow(ingredient_dups) > 0) {
+    print(ingredient_dups)
+    stop("Duplicate entries for the same ingredient in the same product")
+  }
+
 
   # Define use IDs (attribute 'use_nr' in the XML tree)
   srppp_xml <- srppp_xml_define_use_numbers(srppp_xml)
@@ -653,8 +707,7 @@ srppp_dm <- function(from = srppp_xml_url, remove_duplicates = TRUE) {
       desc_pk = xml_attr(indication_information_nodes, "primaryKey")) |>
         mutate_at(c("use_nr", "desc_pk"), as.integer) |>
         left_join(products[c("wNbr", "pNbr")], by = "wNbr") |>
-        select(pNbr, !c(wNbr, pNbr)) |>
-        arrange(pNbr)
+        select(pNbr, !c(wNbr, pNbr))
 
     if (additional_text) {
       ret$add_txt_pk <- as.integer(xml_attr(indication_information_nodes,
@@ -720,6 +773,8 @@ srppp_dm <- function(from = srppp_xml_url, remove_duplicates = TRUE) {
     select(-desc_pk, -add_txt_pk) |>
     arrange(pNbr, use_nr)
 
+  culture_tree <- build_culture_tree(culture_descriptions)
+
   pest_descriptions <- description_table(srppp_xml, "Pest", latin = TRUE)
   pest_additional_texts <- description_table(srppp_xml, "PestAdditionalText")
   pests <- indication_information_table(srppp_xml, "Pest",
@@ -742,7 +797,7 @@ srppp_dm <- function(from = srppp_xml_url, remove_duplicates = TRUE) {
     select(-desc_pk) |>
     arrange(pNbr, use_nr)
 
-  obligations_spe3 <- obligations |>
+  obligations_spe3_pest_partial_effect <- obligations |>
     mutate(
       sw_drift_dist = case_when( # Unsprayed buffer towards surface waters
         grepl("Mindestabstand von [0-9]{1,3} m zu einem Oberfl\u00e4chengew\u00e4sser",
@@ -790,7 +845,17 @@ srppp_dm <- function(from = srppp_xml_url, remove_duplicates = TRUE) {
     ) |>
     mutate(across(
       c(sw_drift_dist, sw_runoff_dist, sw_runoff_points, biotope_drift_dist),
-      as.integer))
+      as.integer)) |>
+    mutate(
+      varying_effect = case_when(
+        grepl("Die Wirkungseffizienz der N\u00fctzlinge kann je nach Pflanzenart stark schwanken", obligation_de) ~ TRUE,
+        grepl("Die Wirkungseffizienz dieses Produkt wurde nicht in allen Kulturen und f\u00fcr alle Applikationen gepr\u00fcft und kann deshalb je nach Kultur, Substrat oder Applikationsbedingungen stark schwanken.", obligation_de) ~ TRUE,
+        grepl("Die Wirkungseffizienz dieses Produkts wurde nicht f\u00fcr alle Applikationen gepr\u00fcft und kann deshalb je nach Substrat oder Applikationsbedingungen stark schwanken.", obligation_de) ~ TRUE,
+        .default = FALSE
+      )
+    )
+
+
 
   srppp_dm <- dm(products,
     pNbrs,
@@ -801,7 +866,7 @@ srppp_dm <- function(from = srppp_xml_url, remove_duplicates = TRUE) {
     substances, ingredients,
     uses, application_comments,
     culture_forms, cultures, pests,
-    obligations = obligations_spe3) |>
+    obligations = obligations_spe3_pest_partial_effect) |>
     dm_add_pk(products, wNbr) |>
     dm_add_pk(pNbrs, pNbr) |>
     dm_add_pk(parallel_imports, id) |>
@@ -830,6 +895,7 @@ srppp_dm <- function(from = srppp_xml_url, remove_duplicates = TRUE) {
       darkgreen = uses:obligations)
 
     attr(srppp_dm, "from") <- attr(srppp_xml, "from")
+    attr(srppp_dm, "culture_tree") <- culture_tree
     class(srppp_dm) <- c("srppp_dm", "dm")
     return(srppp_dm)
 }

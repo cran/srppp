@@ -1,7 +1,8 @@
 # srppp - R package to read XML dumps of the Swiss Register of Plant Protection Products
 
 <!-- badges: start -->
-[![srppp status badge](https://agroscope-ch.r-universe.dev/badges/srppp)](https://agroscope-ch.r-universe.dev/srppp)
+[![CRAN version](https://www.r-pkg.org/badges/version/srppp)](https://cran.r-project.org/package=srppp)
+[![R-universe status](https://agroscope-ch.r-universe.dev/badges/srppp)](https://agroscope-ch.r-universe.dev/srppp)
 [![R-CMD-check](https://github.com/agroscope-ch/srppp/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/agroscope-ch/srppp/actions/workflows/R-CMD-check.yaml)
 [![DOI](https://zenodo.org/badge/832080563.svg)](https://doi.org/10.5281/zenodo.13993340)
 <!-- badges: end -->
@@ -17,7 +18,13 @@ Federal Food Safety and Veterinary Office, coordinating the authorisation of
 plant protection products in Switzerland, does not answer requests regarding
 this package. 
 
-## Installation
+## Installation from CRAN
+
+```
+install.packages("srppp")
+```
+
+## Installation of the latest development code
 
 ```
 install.packages("srppp",
@@ -32,5 +39,5 @@ the package is available [on github](https://agroscope-ch.github.io/srppp/).
 ## See also
 
 You may also be interested in our
-[agroscope-ch/srppphist](https://github.com/agroscope-ch/srppphist) package containing
+[agroscope-ch/srppphist](https://agroscope-ch.github.io/srppphist/) package containing
 historical registration data starting from 2011.

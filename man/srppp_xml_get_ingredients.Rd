@@ -17,7 +17,6 @@ Get ingredients for all registered products described in an XML version of the S
 }
 \examples{
 \donttest{
-library(srppp)
-srppp_xml_get_ingredients()
+try(srppp_xml_get_ingredients())
 }
 }

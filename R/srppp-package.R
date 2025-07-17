@@ -11,6 +11,7 @@
 #' @importFrom dplyr arrange
 #' @importFrom dplyr bind_cols
 #' @importFrom dplyr case_when
+#' @importFrom dplyr distinct
 #' @importFrom dplyr ends_with
 #' @importFrom dplyr filter
 #' @importFrom dplyr group_by

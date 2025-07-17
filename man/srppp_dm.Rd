@@ -5,14 +5,17 @@
 \alias{print.srppp_dm}
 \title{Create a dm object from an XML version of the Swiss Register of Plant Protection Products}
 \usage{
-srppp_dm(from = srppp_xml_url, remove_duplicates = TRUE)
+srppp_dm(from = srppp_xml_url, remove_duplicates = TRUE, verbose = TRUE)
 
 \method{print}{srppp_dm}(x, ...)
 }
 \arguments{
-\item{from}{A specification of the way to retrieve the XML}
+\item{from}{A specification of the way to retrieve the XML to be passed to
+\link{srppp_xml_get}, or an object of the class 'srppp_xml'}
 
 \item{remove_duplicates}{Should duplicates based on wNbrs be removed?}
+
+\item{verbose}{Should we give some feedback?}
 
 \item{x}{A \link{srppp_dm} object}
 
@@ -21,6 +24,8 @@ srppp_dm(from = srppp_xml_url, remove_duplicates = TRUE)
 \value{
 A \link[dm:dm]{dm::dm} object with tables linked by foreign keys
 pointing to primary keys, i.e. with referential integrity.
+Since version 1.1, the returned object has an attribute named 'culture_tree'
+of class \link[data.tree:Node]{data.tree::Node}.
 }
 \description{
 While reading in the data, the information obtained from the XML file is
@@ -74,7 +79,16 @@ Cultural Heritage) to mitigate spray drift in meters
 library(dplyr, warn.conflicts = FALSE)
 library(dm, warn.conflicts = FALSE)
 
-sr <- srppp_dm()
+sr <- try(srppp_dm())
+
+# Fall back to internal test data if downloading or reading fails
+if (inherits(sr, "try-error")) {
+  sr <- system.file("testdata/Daten_Pflanzenschutzmittelverzeichnis_2024-12-16.zip",
+      package = "srppp") |>
+    srppp_xml_get_from_path(from = "2024-12-16") |>
+    srppp_dm()
+}
+
 dm_examine_constraints(sr)
 dm_draw(sr)
 
@@ -119,6 +133,11 @@ boxer_uses |>
   filter(use_nr == 1) |>
   left_join(sr$application_comments, join_by(pNbr, use_nr)) |>
   select(use_nr, application_comment_de)
+
+# Illustrate 'obligations' indicating varying effects
+sr$obligations |>
+  filter(varying_effect) |>
+  select(pNbr, use_nr, code, obligation_de)
 
 }
 }

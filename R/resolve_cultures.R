@@ -1,0 +1,224 @@
+#' Resolve culture specifications to their lowest hierarchical level
+#'
+#' Resolves culture levels in a dataset to their lowest hierarchical level (leaf
+#' nodes) using a parent-child relationship dataset derived from a culture tree
+#' using the German culture names. Only German culture names are supported. If
+#' no match is found, the function assigns `NA` to the `leaf_culture_de` column.
+#' If `correct_culture_names` is set to `TRUE`, the function corrects variations
+#' in the naming of aggregated culture groups with "allg.".
+#'
+#' @importFrom stringr str_detect str_replace
+#' @importFrom rlang sym :=
+#' @importFrom dplyr case_when mutate
+#' @param dataset A data frame or tibble containing the data to be processed. It
+#'   should include a column that represents the culture information to be
+#'   resolved.
+#' @param srppp An [srppp_dm] object. From this object the relations from each
+#'   culture to the leaf cultures (lowest level in the hierarchical tree) are
+#'   used, which are stored as attribute 'culture_leaf_df' of the culture tree,
+#'   which is itself stored as an attribute of the object.
+#' @param culture_column (Optional) A character string specifying the column in
+#'   the dataset that contains the culture information to be resolved. Defaults
+#'   to `"culture_de"`.
+#' @param correct_culture_names If this argument is set to `TRUE`, the following
+#'   corrections will be applied: In the `culture_tree`, and consequently in the
+#'   `culture_leaf_df`, there are variations in the naming of aggregated culture
+#'   groups with "allg.". For example, both "Obstbau allg." and "allg. Obstbau"
+#'   exist. The information about the leaf nodes is only available in one of
+#'   these terms. Therefore, the information from the term containing the leaf
+#'   nodes is transferred to the corresponding "allg. ..." term.
+#' @param application_area_column (Optional). A character string specifing the
+#'   name of the column in dataset containing application area information.
+#'   Default is "application_area_de".
+#' @param resolve_culture_allg If this argument is set to `TRUE`, the culture
+#'   "allg." is resolved to their lowest hierarchical level. The information on
+#'   the application area is additionally used to resolve the culture "allg." to
+#'   the lowest hierarchical level. For example if the culture "allg." is used
+#'   in the application area "Obstbau", only the leaf cultures of the culture
+#'   "Obstbau" are used to resolve the culture "allg.". If the application area
+#'   is not found in the culture tree, all leaf cultures are used to resolve the
+#'   culture "allg.".
+#'
+#' @return
+#' A data frame or tibble with the same structure as the input
+#' `dataset`, but with an additional column `"leaf_culture_de"` that contains
+#' the resolved leaf culture levels. For cultures, that are not defined
+#' in the register, the leaf culture is set to `NA`.
+#'
+#' @details The `resolve_cultures` function processes the input dataset as
+#' follows
+#'
+#' **Leaf Node Resolution**: The cultures in the specified column of the dataset are resolved to their
+#' lowest hierarchical level (leaf nodes) based on the `culture_leaf_df`
+#' mapping.
+#'
+#' The result is an expanded dataset that includes an additional column
+#' (`leaf_culture_de`) containing the resolved cultures at their lowest level.
+#'
+#' @export
+#' @examples
+#' \donttest{
+#' library(srppp)
+#' sr <- try(srppp_dm())
+#'
+#' if (inherits(sr, "try-error")) {
+#'   sr <- system.file("testdata/Daten_Pflanzenschutzmittelverzeichnis_2024-12-16.zip",
+#'       package = "srppp") |>
+#'     srppp_xml_get_from_path(from = "2024-12-16") |>
+#'     srppp_dm()
+#' }
+#'
+#' example_dataset_1 <- data.frame(
+#'   substance_de = c("Spirotetramat", "Spirotetramat", "Spirotetramat", "Spirotetramat"),
+#'   pNbr = c(7839, 7839, 7839, 7839),
+#'   use_nr = c(5, 7, 18, 22),
+#'   application_area_de = c("Obstbau", "Obstbau", "Obstbau", "Obstbau"),
+#'   culture_de = c("Birne", "Kirsche", "Steinobst", "Kernobst"),
+#'     pest_de = c("Birnblattsauger", "Kirschenfliege", "Blattläuse (Röhrenläuse)", "Spinnmilben"))
+#'
+#' # Same as above, but with culture name "Kirschen" instead of "Kirsche"
+#' example_dataset_2 <- data.frame(
+#'   substance_de = c("Spirotetramat", "Spirotetramat", "Spirotetramat", "Spirotetramat"),
+#'   pNbr = c(7839, 7839, 7839, 7839),
+#'   use_nr = c(5, 7, 18, 22),
+#'   application_area_de = c("Obstbau", "Obstbau", "Obstbau", "Obstbau"),
+#'   culture_de = c("Birne", "Kirschen", "Steinobst", "Kernobst"),
+#'   pest_de = c("Birnblattsauger", "Kirschenfliege", "Blattläuse (Röhrenläuse)", "Spinnmilben"))
+#'
+#' resolve_cultures(example_dataset_1, sr)
+#'
+#' # Here we get NA for the leaf culture of "Kirschen"
+#' resolve_cultures(example_dataset_2, sr)
+#'
+#' # Example showing how cereals "Getreide" are resolved
+#' example_dataset_3 <- data.frame(
+#'   substance_de = c("Pirimicarb"),
+#'   pNbr = c(2210),
+#'   use_nr = c(3),
+#'   application_area_de = c("Feldbau"),
+#'   culture_de = c("Getreide"),
+#'   pest_de = c("Blattläuse (Röhrenläuse)") )
+#'
+#' resolve_cultures(example_dataset_3, sr)
+#'
+#' # Example resolving ornamental plants ("Zierpflanzen")
+#' example_dataset_4 <- data.frame(substance_de = c("Metaldehyd"),
+#'  pNbr = 6142, use_nr = 1, application_area_de = c("Zierpflanzen"),
+#'  culture_de = c("Zierpflanzen allg."), pest_de = c("Ackerschnecken/Deroceras Arten") )
+#'
+#' resolve_cultures(example_dataset_4, sr)
+#'
+#' # Illustrate the resolution of the culture "allg."
+#' example_dataset_5 <- data.frame(
+#'   substance_de = c("Kupfer (als Oxychlorid)","Metaldehyd","Metaldehyd","Schwefel"),
+#'   pNbr = c(585,1090,1090,38),
+#'   use_nr = c(12,4,4,1),
+#'   application_area_de = c("Weinbau","Obstbau","Obstbau","Beerenbau"),
+#'   culture_de = c("allg.","allg.","allg.","Brombeere"),
+#'   pest_de = c("Graufäule (Botrytis cinerea)","Wegschnecken/Arion Arten",
+#'     "Wegschnecken/Arion Arten","Gallmilben"))
+#'
+#'  resolve_cultures(example_dataset_5, sr, resolve_culture_allg = FALSE)
+#'  resolve_cultures(example_dataset_5, sr)
+#'
+#' # Illustrate the resolution of "Obstbau allg.", which does not have children in
+#' # the XML files, but which should have children, because Obstbau allg. is 
+#' # not a leaf culture.
+#' example_dataset_6 <- data.frame(
+#'   substance_de = c("Schwefel"),
+#'   pNbr = c(3561),
+#'   use_nr = c(4),
+#'   application_area_de = c("Obstbau"),
+#'   culture_de = c("Obstbau allg."),
+#'   pest_de = c("Wühl- oder Schermaus") )
+#'
+#'  resolve_cultures(example_dataset_6, sr,
+#'    correct_culture_names = FALSE)
+#'  resolve_cultures(example_dataset_6, sr,
+#'    correct_culture_names = TRUE)
+#' }
+resolve_cultures <- function(dataset, srppp,
+  culture_column = "culture_de", application_area_column = "application_area_de",
+  correct_culture_names = TRUE, resolve_culture_allg = TRUE)
+{
+
+  culture_leaf_df <- attr(attr(srppp, "culture_tree"), "culture_leaf_df")
+  corrected_cultures <- FALSE
+
+  if (correct_culture_names) {
+        culture_leaf_df <- culture_leaf_df |>
+      mutate(culture_de = case_when(
+        str_detect(culture_de, "allg\\.") ~ str_replace(culture_de, "(.*) allg\\.", "allg. \\1"),
+        TRUE ~ culture_de
+      ) |> trimws())
+
+    # Store original culture names
+    original_cultures <- dataset[[culture_column]]
+
+    # Reorganization of culture names
+    dataset <- dataset |>
+      mutate(!!sym(culture_column) := case_when(
+        str_detect(!!sym(culture_column), "allg\\.") ~ str_replace(!!sym(culture_column), "(.*) allg\\.", "allg. \\1"),
+        TRUE ~ !!sym(culture_column)
+      ) |> trimws())
+
+    # Check if any cultures were corrected
+    corrected_cultures <- any(original_cultures != dataset[[culture_column]])
+
+    if (corrected_cultures) {
+      # Add new column with corrected names
+      dataset[[paste0(culture_column, "_corrected")]] <- dataset[[culture_column]]
+      # Restore original names in the main column
+      dataset[[culture_column]] <- original_cultures
+
+      dataset <- dataset |>
+      mutate(!!sym(culture_column) := !!sym(paste0(culture_column, "_corrected"))) |>
+        select(-all_of(paste0(culture_column, "_corrected")))
+    }
+  }
+
+  if (resolve_culture_allg) {
+    # Identify rows with "allg." in the culture column
+    allg_rows <- dataset[[culture_column]] == "allg."
+
+    if (any(allg_rows)) {
+      # Subset rows with "allg."
+      allg_data <- dataset[allg_rows, ]
+
+      # Expand rows with "allg." based on application area
+      expanded_allg <- do.call(rbind, lapply(seq_len(nrow(allg_data)), function(i) {
+        row <- allg_data[i, ]
+        app_areas <- strsplit(as.character(row[[application_area_column]]), "\\s+")[[1]]
+
+        # Find relevant leaf cultures for all application areas
+        relevant_cultures <- do.call(rbind, lapply(app_areas, function(area) {
+          cultures <- culture_leaf_df[culture_leaf_df$culture_de == paste0("allg. ", area), ]
+          cultures <- cultures[!cultures$leaf_culture_de %in% c(paste0("allg. ", area), paste0(area, " allg.")), ]
+          return(cultures)
+        }))
+
+        # If no specific application area found, use all leaf cultures
+        if (nrow(relevant_cultures) == 0) {
+          relevant_cultures <- culture_leaf_df[!grepl("^allg\\.", culture_leaf_df$culture_de), ]
+        }
+
+        # Expand the row
+        expanded <- do.call(rbind, replicate(nrow(relevant_cultures), row, simplify = FALSE))
+        expanded[[culture_column]] <- relevant_cultures$leaf_culture_de
+        return(expanded)
+      }))
+
+      # Replace "allg." rows in the original dataset with expanded rows
+      dataset <- dataset[!allg_rows, ]
+      dataset <- rbind(dataset, expanded_allg)
+    }
+  }
+
+  join_spec <- "culture_de"
+  names(join_spec) <- culture_column
+
+  expanded_data <- dataset |>
+    left_join(culture_leaf_df, by = join_spec, relationship = "many-to-many")
+
+  return(expanded_data)
+}

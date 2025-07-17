@@ -1,7 +1,7 @@
 ---
 title: Statistics on products containing microorganisms in the latest XML dump of the SRPPP
 author: Johannes Ranke
-date: Last change 25 July 2024 (rebuilt `r Sys.Date()`)
+date: Last change 17 July 2025 (rebuilt `r Sys.Date()`)
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -21,7 +21,15 @@ library(knitr)
 ```
 
 ```{r srppp}
-srppp <- srppp_dm(srppp_xml_url)
+srppp <- try(srppp_dm(srppp_xml_url))
+
+# Fall back to using the file distributed with the package
+if (inherits(srppp, "try-error")) {
+  test_data <- system.file("testdata/Daten_Pflanzenschutzmittelverzeichnis_2024-12-16.zip",
+  package = "srppp")
+  test_xml <- srppp_xml_get_from_path(test_data, from = "2024-12-16")
+  srppp <- srppp_dm(test_xml)
+}
 ```
 
 ## Products in microorganism categories

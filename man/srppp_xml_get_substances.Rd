@@ -18,6 +18,6 @@ Get substances from an XML version of the Swiss Register of Plant Protection Pro
 }
 \examples{
 \donttest{
-srppp_xml_get_substances()
+try(srppp_xml_get_substances())
 }
 }

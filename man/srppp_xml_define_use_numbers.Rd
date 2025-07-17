@@ -17,6 +17,6 @@ Define use identification numbers in an SRPPP read in from an XML file
 }
 \examples{
 \donttest{
-srppp_xml_define_use_numbers()
+try(srppp_xml_define_use_numbers())
 }
 }

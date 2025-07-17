@@ -17,8 +17,8 @@ in the XML file.
 Get Parallel Imports from an XML version of the Swiss Register of Plant Protection Products
 }
 \examples{
-# Get current list of parallel_imports
+# Try to get current list of parallel_imports
 \donttest{
-srppp_xml_get_parallel_imports()
+try(srppp_xml_get_parallel_imports())
 }
 }

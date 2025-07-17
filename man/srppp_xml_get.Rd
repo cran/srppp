@@ -29,8 +29,8 @@ An object inheriting from 'srppp_xml', 'xml_document', 'xml_node'
 Read an XML version of the Swiss Register of Plant Protection Products
 }
 \examples{
-# The current SRPPP as available from the FOAG website
+# Try to get the current SRPPP as available from the FOAG website
 \donttest{
-srppp_cur <- srppp_xml_get()
+srppp_cur <- try(srppp_xml_get())
 }
 }

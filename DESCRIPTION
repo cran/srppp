@@ -1,8 +1,8 @@
 Package: srppp
 Type: Package
 Title: Read the Swiss Register of Plant Protection Products
-Version: 1.0.1
-Date: 2024-10-29
+Version: 1.1.0
+Date: 2025-07-17
 Authors@R: c(
   person("Daniel", "Baumgartner", role = "ctb",
     comment = "Provided feedback, explanations and background information"),
@@ -26,7 +26,7 @@ Description: Generate data objects from XML versions of the Swiss
   plant protection products in Switzerland, does not answer requests regarding
   this package. 
 Depends: R (>= 4.1.0), dm
-Imports: xml2, tibble, stringr, dplyr, tidyr, cli
+Imports: xml2, tibble, stringr, dplyr, tidyr, cli, data.tree, rlang
 Suggests: knitr, rmarkdown, here, DiagrammeR, DiagrammeRsvg, testthat
         (>= 3.0.0), parallel, waldo
 BugReports: https://github.com/agroscope-ch/srppp/issues
@@ -38,14 +38,15 @@ Encoding: UTF-8
 Language: en-GB
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2024-10-29 15:59:16 UTC; f80868656
+Packaged: 2025-07-17 10:25:20 UTC; jranke
 Author: Daniel Baumgartner [ctb] (Provided feedback, explanations and
     background information),
   Marcel Mathis [rev, ctb],
   Romualdus Kasteel [rev] (Provided feedback to version 0.3.4),
   Elisabeth Lutz [ctb],
-  Johannes Ranke [aut, cre] (<https://orcid.org/0000-0003-4371-6538>),
+  Johannes Ranke [aut, cre] (ORCID:
+    <https://orcid.org/0000-0003-4371-6538>),
   Agroscope [cph]
 Maintainer: Johannes Ranke <johannes.ranke@agroscope.admin.ch>
 Repository: CRAN
-Date/Publication: 2024-11-01 14:40:02 UTC
+Date/Publication: 2025-07-17 11:30:02 UTC

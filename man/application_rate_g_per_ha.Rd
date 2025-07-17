@@ -41,7 +41,7 @@ A tibble containing one additional column 'rate_g_per_ha'
 }
 \description{
 An application rate in g active substance/ha is calculated from information
-on dosage (product concentration in the application solution), application volume,
+on dosage (product concentration in the application solution) and application volume,
 or directly from the product application rate. This is complicated by the fact
 that a rate ("expenditure" in the XML file) with units l/ha can refer
 to the application solution or to the liquid product.
@@ -65,7 +65,16 @@ areas in Switzerland.
 library(srppp)
 library(dplyr, warn.conflicts = FALSE)
 library(dm, warn.conflicts = FALSE)
-sr <- srppp_dm()
+
+sr <- try(srppp_dm())
+
+# Fall back to internal test data if downloading or reading fails
+if (inherits(sr, "try-error")) {
+  sr <- system.file("testdata/Daten_Pflanzenschutzmittelverzeichnis_2024-12-16.zip",
+      package = "srppp") |>
+    srppp_xml_get_from_path(from = "2024-12-16") |>
+    srppp_dm()
+}
 
 product_uses_with_ingredients <- sr$substances |>
   filter(substance_de \%in\% c("Halauxifen-methyl", "Kupfer (als Kalkpr\u00E4parat)")) |>

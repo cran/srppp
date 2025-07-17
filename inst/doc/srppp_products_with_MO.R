@@ -6,7 +6,15 @@ library(dplyr)
 library(knitr)
 
 ## ----srppp--------------------------------------------------------------------
-srppp <- srppp_dm(srppp_xml_url)
+srppp <- try(srppp_dm(srppp_xml_url))
+
+# Fall back to using the file distributed with the package
+if (inherits(srppp, "try-error")) {
+  test_data <- system.file("testdata/Daten_Pflanzenschutzmittelverzeichnis_2024-12-16.zip",
+  package = "srppp")
+  test_xml <- srppp_xml_get_from_path(test_data, from = "2024-12-16")
+  srppp <- srppp_dm(test_xml)
+}
 
 ## ----warning = FALSE----------------------------------------------------------
 srppp$categories |>

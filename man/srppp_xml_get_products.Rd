@@ -35,8 +35,8 @@ or NULL.
 Get Products from an XML version of the Swiss Register of Plant Protection Products
 }
 \examples{
-# Get current list of products
+# Try to get current list of products
 \donttest{
-srppp_xml_get_products()
+try(srppp_xml_get_products())
 }
 }

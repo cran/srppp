@@ -18,8 +18,10 @@ Get uses ('indications') for all products described in an XML version of the Swi
 }
 \examples{
 \donttest{
-srppp_xml <- srppp_xml_get()
-srppp_xml <- srppp_xml_define_use_numbers(srppp_xml)
-srppp_xml_get_uses(srppp_xml)
+srppp_xml <- try(srppp_xml_get())
+if (!inherits(srppp_xml, "try-error")) {
+  srppp_xml <- srppp_xml_define_use_numbers(srppp_xml)
+  srppp_xml_get_uses(srppp_xml)
+}
 }
 }

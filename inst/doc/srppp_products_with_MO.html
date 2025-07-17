@@ -40,27 +40,27 @@ display: none;
 </style>
 
 <style type="text/css">
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 
 <style type="text/css">
-code {
-white-space: pre;
-}
-.sourceCode {
-overflow: visible;
-}
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -71,57 +71,58 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-{ counter-reset: source-line 0; }
+  { counter-reset: source-line 0; }
 pre.numberSource code > span
-{ position: relative; left: -4em; counter-increment: source-line; }
+  { position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-{ content: counter(source-line);
-position: relative; left: -1em; text-align: right; vertical-align: baseline;
-border: none; display: inline-block;
--webkit-touch-callout: none; -webkit-user-select: none;
--khtml-user-select: none; -moz-user-select: none;
--ms-user-select: none; user-select: none;
-padding: 0 4px; width: 4em;
-color: #aaaaaa;
-}
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-{ }
+  {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } 
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.at { color: #7d9029; } 
-code span.bn { color: #40a070; } 
-code span.bu { color: #008000; } 
-code span.cf { color: #007020; font-weight: bold; } 
-code span.ch { color: #4070a0; } 
-code span.cn { color: #880000; } 
-code span.co { color: #60a0b0; font-style: italic; } 
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.do { color: #ba2121; font-style: italic; } 
-code span.dt { color: #902000; } 
-code span.dv { color: #40a070; } 
-code span.er { color: #ff0000; font-weight: bold; } 
-code span.ex { } 
-code span.fl { color: #40a070; } 
-code span.fu { color: #06287e; } 
-code span.im { color: #008000; font-weight: bold; } 
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.kw { color: #007020; font-weight: bold; } 
-code span.op { color: #666666; } 
-code span.ot { color: #007020; } 
-code span.pp { color: #bc7a00; } 
-code span.sc { color: #4070a0; } 
-code span.ss { color: #bb6688; } 
-code span.st { color: #4070a0; } 
-code span.va { color: #19177c; } 
-code span.vs { color: #4070a0; } 
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -350,38 +351,46 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Statistics on products containing
 microorganisms in the latest XML dump of the SRPPP</h1>
 <h4 class="author">Johannes Ranke</h4>
-<h4 class="date">Last change 25 July 2024 (rebuilt 2024-10-29)</h4>
+<h4 class="date">Last change 17 July 2025 (rebuilt 2025-07-17)</h4>
 
 
 <div id="TOC">
 <ul>
-<li><a href="#products-in-microorganism-categories" id="toc-products-in-microorganism-categories">Products in microorganism
-categories</a></li>
-<li><a href="#insecticides-and-fungicides-containing-microorganisms" id="toc-insecticides-and-fungicides-containing-microorganisms">Insecticides
+<li><a href="#products-in-microorganism-categories">Products in
+microorganism categories</a></li>
+<li><a href="#insecticides-and-fungicides-containing-microorganisms">Insecticides
 and fungicides containing microorganisms</a></li>
-<li><a href="#summary" id="toc-summary">Summary</a></li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 
 <details class="chunk-details"><summary class="chunk-summary"><span class="chunk-summary-text">Code</span></summary>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">tidy =</span> <span class="cn">FALSE</span>, <span class="at">cache =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">options</span>(<span class="at">knitr.kable.NA =</span> <span class="st">&#39;&#39;</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(srppp)</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">tidy =</span> <span class="cn">FALSE</span>, <span class="at">cache =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">knitr.kable.NA =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(srppp)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code></pre></div>
 </details>
 <details class="chunk-details"><summary class="chunk-summary"><span class="chunk-summary-text">Code</span></summary>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>srppp <span class="ot">&lt;-</span> <span class="fu">srppp_dm</span>(srppp_xml_url)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>srppp <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">srppp_dm</span>(srppp_xml_url))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fall back to using the file distributed with the package</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">inherits</span>(srppp, <span class="st">&quot;try-error&quot;</span>)) {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  test_data <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;testdata/Daten_Pflanzenschutzmittelverzeichnis_2024-12-16.zip&quot;</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">package =</span> <span class="st">&quot;srppp&quot;</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  test_xml <span class="ot">&lt;-</span> <span class="fu">srppp_xml_get_from_path</span>(test_data, <span class="at">from =</span> <span class="st">&quot;2024-12-16&quot;</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  srppp <span class="ot">&lt;-</span> <span class="fu">srppp_dm</span>(test_xml)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </details>
 <div id="products-in-microorganism-categories" class="section level2">
 <h2>Products in microorganism categories</h2>
 <p>The following list was used to identify product categories containing
 microorganisms.</p>
 <details class="chunk-details"><summary class="chunk-summary"><span class="chunk-summary-text">Code</span></summary>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>srppp<span class="sc">$</span>categories <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">group_by</span>(category_de) <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>srppp<span class="sc">$</span>categories <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(category_de) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 </details>
 <table>
 <thead>
@@ -393,11 +402,11 @@ microorganisms.</p>
 <tbody>
 <tr class="odd">
 <td align="left">Akarizid</td>
-<td align="right">59</td>
+<td align="right">62</td>
 </tr>
 <tr class="even">
 <td align="left">Bakterizid</td>
-<td align="right">24</td>
+<td align="right">25</td>
 </tr>
 <tr class="odd">
 <td align="left">Desinfektionsmittel</td>
@@ -405,19 +414,19 @@ microorganisms.</p>
 </tr>
 <tr class="even">
 <td align="left">Fungizid</td>
-<td align="right">268</td>
+<td align="right">264</td>
 </tr>
 <tr class="odd">
 <td align="left">Herbizid</td>
-<td align="right">341</td>
+<td align="right">321</td>
 </tr>
 <tr class="even">
 <td align="left">Insektizid</td>
-<td align="right">133</td>
+<td align="right">134</td>
 </tr>
 <tr class="odd">
 <td align="left">Insektizid (Insektenlockstoff, Pheromon)</td>
-<td align="right">25</td>
+<td align="right">30</td>
 </tr>
 <tr class="even">
 <td align="left">Insektizid (Seifenpräparat)</td>
@@ -429,7 +438,7 @@ microorganisms.</p>
 </tr>
 <tr class="even">
 <td align="left">Lebende Organismen (Insekten)</td>
-<td align="right">113</td>
+<td align="right">114</td>
 </tr>
 <tr class="odd">
 <td align="left">Lebende Organismen (Insektenviren)</td>
@@ -441,11 +450,11 @@ microorganisms.</p>
 </tr>
 <tr class="odd">
 <td align="left">Lebende Organismen (Nematoden)</td>
-<td align="right">22</td>
+<td align="right">24</td>
 </tr>
 <tr class="even">
 <td align="left">Lebende Organismen (Pilze)</td>
-<td align="right">12</td>
+<td align="right">14</td>
 </tr>
 <tr class="odd">
 <td align="left">Lebende Organismen (gegen Pilze)</td>
@@ -465,7 +474,7 @@ microorganisms.</p>
 </tr>
 <tr class="odd">
 <td align="left">Phytoregulator</td>
-<td align="right">69</td>
+<td align="right">71</td>
 </tr>
 <tr class="even">
 <td align="left">Rodentizid</td>
@@ -477,7 +486,7 @@ microorganisms.</p>
 </tr>
 <tr class="even">
 <td align="left">Stimulator der natürlichen Abwehrkräfte</td>
-<td align="right">4</td>
+<td align="right">5</td>
 </tr>
 <tr class="odd">
 <td align="left">Virizid</td>
@@ -489,7 +498,7 @@ microorganisms.</p>
 </tr>
 <tr class="odd">
 <td align="left">Wildabhaltemittel</td>
-<td align="right">3</td>
+<td align="right">4</td>
 </tr>
 <tr class="even">
 <td align="left">Wundverschlussmittel</td>
@@ -500,11 +509,11 @@ microorganisms.</p>
 <p>The resulting product categories containing microorganisms were
 defined as follows:</p>
 <details class="chunk-details"><summary class="chunk-summary"><span class="chunk-summary-text">Code</span></summary>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>microorganism_categories <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="st">&quot;Lebende Organismen (Bakterien)&quot;</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="st">&quot;Lebende Organismen (Pilze)&quot;</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="st">&quot;Lebende Organismen (gegen Pilze)&quot;</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(<span class="at">Category =</span> microorganism_categories))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>microorganism_categories <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Lebende Organismen (Bakterien)&quot;</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Lebende Organismen (Pilze)&quot;</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Lebende Organismen (gegen Pilze)&quot;</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(<span class="at">Category =</span> microorganism_categories))</span></code></pre></div>
 </details>
 <table>
 <thead>
@@ -526,14 +535,14 @@ defined as follows:</p>
 </table>
 <p>The corresponding products are shown below.</p>
 <details class="chunk-details"><summary class="chunk-summary"><span class="chunk-summary-text">Code</span></summary>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>products_in_microorganism_categories <span class="ot">&lt;-</span> srppp<span class="sc">$</span>products <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>isSalePermission) <span class="sc">|&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>categories, <span class="at">by =</span> <span class="st">&quot;pNbr&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">filter</span>(category_de <span class="sc">%in%</span> microorganism_categories) <span class="sc">|&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="fu">select</span>(pNbr, wNbr, name, category_de) <span class="sc">|&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="fu">arrange</span>(pNbr)</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>n_in_categories <span class="ot">&lt;-</span> <span class="fu">nrow</span>(products_in_microorganism_categories)</span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="fu">kable</span>(products_in_microorganism_categories)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>products_in_microorganism_categories <span class="ot">&lt;-</span> srppp<span class="sc">$</span>products <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>isSalePermission) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>categories, <span class="at">by =</span> <span class="st">&quot;pNbr&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category_de <span class="sc">%in%</span> microorganism_categories) <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(pNbr, wNbr, name, category_de) <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pNbr)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>n_in_categories <span class="ot">&lt;-</span> <span class="fu">nrow</span>(products_in_microorganism_categories)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(products_in_microorganism_categories)</span></code></pre></div>
 </details>
 <table>
 <colgroup>
@@ -677,6 +686,18 @@ defined as follows:</p>
 <td align="left">Lalguard M52 GR</td>
 <td align="left">Lebende Organismen (Pilze)</td>
 </tr>
+<tr class="even">
+<td align="right">9698</td>
+<td align="left">7632</td>
+<td align="left">Metapro</td>
+<td align="left">Lebende Organismen (Pilze)</td>
+</tr>
+<tr class="odd">
+<td align="right">9699</td>
+<td align="left">7633</td>
+<td align="left">Beaupro</td>
+<td align="left">Lebende Organismen (Pilze)</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -686,16 +707,16 @@ defined as follows:</p>
 fungicides were used to establish filter criteria active substances that
 are microorganisms.</p>
 <details class="chunk-details"><summary class="chunk-summary"><span class="chunk-summary-text">Code</span></summary>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>srppp<span class="sc">$</span>products <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>isSalePermission) <span class="sc">|&gt;</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>categories, <span class="at">by =</span> <span class="st">&quot;pNbr&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="fu">filter</span>(category_de <span class="sc">==</span> <span class="st">&quot;Insektizid&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>ingredients, <span class="at">by =</span> <span class="st">&quot;pNbr&quot;</span>, <span class="at">relationship =</span> <span class="st">&quot;many-to-many&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>substances, <span class="at">by =</span> <span class="st">&quot;pk&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  <span class="fu">select</span>(substance_de) <span class="sc">|&gt;</span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>  <span class="fu">arrange</span>(substance_de) <span class="sc">|&gt;</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>srppp<span class="sc">$</span>products <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>isSalePermission) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>categories, <span class="at">by =</span> <span class="st">&quot;pNbr&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category_de <span class="sc">==</span> <span class="st">&quot;Insektizid&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>ingredients, <span class="at">by =</span> <span class="st">&quot;pNbr&quot;</span>, <span class="at">relationship =</span> <span class="st">&quot;many-to-many&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>substances, <span class="at">by =</span> <span class="st">&quot;pk&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(substance_de) <span class="sc">|&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(substance_de) <span class="sc">|&gt;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 </details>
 <table>
 <colgroup>
@@ -912,16 +933,16 @@ sulfuric acid, sodium salts</td>
 </tbody>
 </table>
 <details class="chunk-details"><summary class="chunk-summary"><span class="chunk-summary-text">Code</span></summary>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>srppp<span class="sc">$</span>products <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>isSalePermission) <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>categories, <span class="at">by =</span> <span class="st">&quot;pNbr&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="fu">filter</span>(category_de <span class="sc">==</span> <span class="st">&quot;Fungizid&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>ingredients, <span class="at">by =</span> <span class="st">&quot;pNbr&quot;</span>, <span class="at">relationship =</span> <span class="st">&quot;many-to-many&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>substances, <span class="at">by =</span> <span class="st">&quot;pk&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="fu">select</span>(substance_de) <span class="sc">|&gt;</span></span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>  <span class="fu">arrange</span>(substance_de) <span class="sc">|&gt;</span></span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>srppp<span class="sc">$</span>products <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>isSalePermission) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>categories, <span class="at">by =</span> <span class="st">&quot;pNbr&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category_de <span class="sc">==</span> <span class="st">&quot;Fungizid&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>ingredients, <span class="at">by =</span> <span class="st">&quot;pNbr&quot;</span>, <span class="at">relationship =</span> <span class="st">&quot;many-to-many&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>substances, <span class="at">by =</span> <span class="st">&quot;pk&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(substance_de) <span class="sc">|&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(substance_de) <span class="sc">|&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 </details>
 <table>
 <colgroup>
@@ -967,302 +988,308 @@ sulfuric acid, sodium salts</td>
 <td align="left">2-Methyl-2H-isothiazol-3-on</td>
 </tr>
 <tr class="odd">
+<td align="left">2-methylaminoethanol</td>
+</tr>
+<tr class="even">
 <td align="left">Alcohols C9-11, ethoxylated propoxylated</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Alcohols, C12-15, ethoxylated</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Alcohols, C9-11, ethoxylated</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Aluminiumfosetyl (Fosetyl-Al)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Ametoctradin</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Amisulbrom</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Ampelomyces quisqualis</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Anethol (1-methoxyl-(1-Propenyl) benzen)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Aureobasidium pullulans</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Azoxystrobin</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Bacillus amyloliquefaciens</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Benalaxyl-M</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Benthiavalicarb-isopropyl</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Benzolsulfonsäure</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Benzolsulfonsäure, 4-C10-13-sec-Alkylderivate</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Benzovindiflupyr</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Benzylalkohol</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Bixafen</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Boscalid</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Bupirimate</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">C14-C16-Alkanehydroxysulfonic acids sodium salts</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Calcium Dodecylbenzene Sulfonate</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Captan</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Cyazofamid</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Cyflufenamid</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Cymoxanil</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Cyprodinil</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Dazomet (DMTT)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Decanamide, N, N- dimethyl</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Destillate (Erdöl)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Difenoconazol</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Dimethomorph</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Dinatriumphosphonat</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Dipenten; Limonen</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Disodium maleate</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Dithianon</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Docusatnatrium</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Dodecylbenzolsulfonsäure, Verbindung mit 2-Aminoethanol
 (1:1)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Dodine</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Estragol</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Ethylenediamine, ethoxylated and propoxylated</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Fenhexamid</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Fenpropidin</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Fenpyrazamin</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Fluazinam</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Fludioxonil</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Fluopicolide</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Fluopyram</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Fluoxastrobin</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Flutolanil</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Fluxapyroxad</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Folpet</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Fosetyl</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Gemisch aus: 2-Ethylhexyl-mono-D-glucopyranosid und
 2-Ethylhexyl-di-D-glucopyranosid</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Imazalil</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Iprovalicarb</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Kaliumhydrogencarbonat</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Kaliumphosphonat</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Kresoxim-methyl</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Kupfer (als Hydroxid)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Kupfer (als Kalkpräparat, Bordeaux-Brühe)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Kupfer (als Octanoat)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Kupfer (als Oxychlorid)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Kupfer (als Tribasisches Kupfersulfat)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Lösungsmittelnaphtha (Erdöl), leichte aromatische</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Mandipropamid</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Mefentrifluconazole</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Mepanipyrim</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Mepiquatchlorid</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Metalaxyl-M</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Metconazole</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Methenamin; Hexamethylenetetramin</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Metiram</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Metrafenone</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">N,N-Dimethyloctanamide</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Naphtalin</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Naphtha (Erdoel), schwere Alkylat- [Enthält weniger als
 0.1 % Benzol]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Naphthalenesulfonic acid, methyl-, polymer with
 formaldehyde, sodium salt</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Natrium-di-butyl-naphtalinsulfonat</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Natriumdiisopropylnaphtalinsulfonat</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Natriumhydroxid</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Oleum foeniculi</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Orangenöl</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Paclobutrazol</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Penconazole</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Pentanol, verzweigt und linear</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Penthiopyrad</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Phlebia gigantea</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Pin-2(3)-en</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Propamocarb</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Propyllaktat</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Proquinazid</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Prothioconazole</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Pseudomonas sp. Stamm DSMZ 13134</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Pyraclostrobin</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Pyrimethanil</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Pyriofenon</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Quarz</td>
+</tr>
+<tr class="even">
+<td align="left">Saccharomyces cerevisiae</td>
 </tr>
 <tr class="odd">
 <td align="left">Schachtelhalmextrakt</td>
@@ -1328,14 +1355,14 @@ methyl ester</td>
 </table>
 <p>The following genus names were established as filtering criteria.</p>
 <details class="chunk-details"><summary class="chunk-summary"><span class="chunk-summary-text">Code</span></summary>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>microorganism_genus_names <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="st">&quot;Bacillus&quot;</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="st">&quot;Beauveria&quot;</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="st">&quot;Metarhizium&quot;</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="st">&quot;Xenorhabdus&quot;</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  <span class="st">&quot;Phlebia&quot;</span>,</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="st">&quot;Pseudomonas&quot;</span>)</span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(<span class="st">&quot;Genus names&quot;</span> <span class="ot">=</span> microorganism_genus_names, <span class="at">check.names =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>microorganism_genus_names <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Bacillus&quot;</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Beauveria&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Metarhizium&quot;</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Xenorhabdus&quot;</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Phlebia&quot;</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Pseudomonas&quot;</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(<span class="st">&quot;Genus names&quot;</span> <span class="ot">=</span> microorganism_genus_names, <span class="at">check.names =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
 </details>
 <table>
 <thead>
@@ -1366,11 +1393,11 @@ methyl ester</td>
 </table>
 <p>This results in the following list of active ingredients.</p>
 <details class="chunk-details"><summary class="chunk-summary"><span class="chunk-summary-text">Code</span></summary>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>microorganism_regexp <span class="ot">&lt;-</span> <span class="fu">paste</span>(microorganism_genus_names, <span class="at">collapse =</span> <span class="st">&quot;|&quot;</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>microorganism_ingredients <span class="ot">&lt;-</span> srppp<span class="sc">$</span>substances <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(microorganism_regexp, substance_de)) <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="fu">select</span>(pk, substance_de)</span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="fu">kable</span>(microorganism_ingredients)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>microorganism_regexp <span class="ot">&lt;-</span> <span class="fu">paste</span>(microorganism_genus_names, <span class="at">collapse =</span> <span class="st">&quot;|&quot;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>microorganism_ingredients <span class="ot">&lt;-</span> srppp<span class="sc">$</span>substances <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(microorganism_regexp, substance_de)) <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(pk, substance_de)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(microorganism_ingredients)</span></code></pre></div>
 </details>
 <table>
 <thead>
@@ -1436,16 +1463,16 @@ methyl ester</td>
 </table>
 <p>The following products contain one of these active ingredients.</p>
 <details class="chunk-details"><summary class="chunk-summary"><span class="chunk-summary-text">Code</span></summary>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>additional_products_containing_microorganisms <span class="ot">&lt;-</span> srppp<span class="sc">$</span>products <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>isSalePermission) <span class="sc">|&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>ingredients, <span class="at">by =</span> <span class="st">&quot;pNbr&quot;</span>, <span class="at">relationship =</span> <span class="st">&quot;many-to-many&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  <span class="fu">filter</span>(pk <span class="sc">%in%</span> microorganism_ingredients<span class="sc">$</span>pk) <span class="sc">|&gt;</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>pk) <span class="sc">|&gt;</span></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>categories, <span class="at">by =</span> <span class="st">&quot;pNbr&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>  <span class="fu">select</span>(pNbr, wNbr, name, category_de) <span class="sc">|&gt;</span></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  <span class="fu">arrange</span>(pNbr)</span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>n_additional <span class="ot">&lt;-</span> <span class="fu">nrow</span>(additional_products_containing_microorganisms)</span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="fu">kable</span>(additional_products_containing_microorganisms)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>additional_products_containing_microorganisms <span class="ot">&lt;-</span> srppp<span class="sc">$</span>products <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>isSalePermission) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>ingredients, <span class="at">by =</span> <span class="st">&quot;pNbr&quot;</span>, <span class="at">relationship =</span> <span class="st">&quot;many-to-many&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pk <span class="sc">%in%</span> microorganism_ingredients<span class="sc">$</span>pk) <span class="sc">|&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>pk) <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(srppp<span class="sc">$</span>categories, <span class="at">by =</span> <span class="st">&quot;pNbr&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(pNbr, wNbr, name, category_de) <span class="sc">|&gt;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pNbr)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>n_additional <span class="ot">&lt;-</span> <span class="fu">nrow</span>(additional_products_containing_microorganisms)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(additional_products_containing_microorganisms)</span></code></pre></div>
 </details>
 <table>
 <colgroup>
@@ -1751,28 +1778,40 @@ methyl ester</td>
 <td align="left">Lalguard M52 GR</td>
 <td align="left">Lebende Organismen (Pilze)</td>
 </tr>
+<tr class="odd">
+<td align="right">9698</td>
+<td align="left">7632</td>
+<td align="left">Metapro</td>
+<td align="left">Lebende Organismen (Pilze)</td>
+</tr>
+<tr class="even">
+<td align="right">9699</td>
+<td align="left">7633</td>
+<td align="left">Beaupro</td>
+<td align="left">Lebende Organismen (Pilze)</td>
+</tr>
 </tbody>
 </table>
 </div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>
-<p>In summary, out of 1723 products, there are 21 in the microorganism
-categories as shown above, and 48 products in the insecticide and
+<p>In summary, out of 1713 products, there are 23 in the microorganism
+categories as shown above, and 50 products in the insecticide and
 fungicide categories which contain an active substance that has a name
 that contains one of the microorganism genus names listed above.</p>
 <details class="chunk-details"><summary class="chunk-summary"><span class="chunk-summary-text">Code</span></summary>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>products_containing_microorganisms <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  products_in_microorganism_categories, </span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  additional_products_containing_microorganisms) <span class="sc">|&gt;</span></span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>  <span class="fu">arrange</span>(pNbr, category_de) <span class="sc">|&gt;</span></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>n_unique <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(products_containing_microorganisms<span class="sc">$</span>pNbr))</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>products_containing_microorganisms <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  products_in_microorganism_categories, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  additional_products_containing_microorganisms) <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pNbr, category_de) <span class="sc">|&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>n_unique <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(products_containing_microorganisms<span class="sc">$</span>pNbr))</span></code></pre></div>
 </details>
-<p>The consolidated list of the 42 unique products identified in this
+<p>The consolidated list of the 44 unique products identified in this
 way is shown below. Some of these products are listed twice, because
 they were identified via both ways.</p>
 <details class="chunk-details"><summary class="chunk-summary"><span class="chunk-summary-text">Code</span></summary>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">kable</span>(products_containing_microorganisms)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(products_containing_microorganisms)</span></code></pre></div>
 </details>
 <table>
 <colgroup>
@@ -2112,6 +2151,18 @@ they were identified via both ways.</p>
 <td align="right">9481</td>
 <td align="left">7500</td>
 <td align="left">Lalguard M52 GR</td>
+<td align="left">Lebende Organismen (Pilze)</td>
+</tr>
+<tr class="odd">
+<td align="right">9698</td>
+<td align="left">7632</td>
+<td align="left">Metapro</td>
+<td align="left">Lebende Organismen (Pilze)</td>
+</tr>
+<tr class="even">
+<td align="right">9699</td>
+<td align="left">7633</td>
+<td align="left">Beaupro</td>
 <td align="left">Lebende Organismen (Pilze)</td>
 </tr>
 </tbody>
