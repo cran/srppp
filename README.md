@@ -40,4 +40,5 @@ the package is available [on github](https://agroscope-ch.github.io/srppp/).
 
 You may also be interested in our
 [agroscope-ch/srppphist](https://agroscope-ch.github.io/srppphist/) package containing
-historical registration data starting from 2011.
+historical registration data starting from 2011. This package is generally updated each
+year after the first publication of the register as an XML file.

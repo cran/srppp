@@ -122,7 +122,7 @@
 #'  resolve_cultures(example_dataset_5, sr)
 #'
 #' # Illustrate the resolution of "Obstbau allg.", which does not have children in
-#' # the XML files, but which should have children, because Obstbau allg. is 
+#' # the XML files, but which should have children, because Obstbau allg. is
 #' # not a leaf culture.
 #' example_dataset_6 <- data.frame(
 #'   substance_de = c("Schwefel"),
@@ -141,6 +141,12 @@ resolve_cultures <- function(dataset, srppp,
   culture_column = "culture_de", application_area_column = "application_area_de",
   correct_culture_names = TRUE, resolve_culture_allg = TRUE)
 {
+
+  if (!is.null(attr(srppp, "srppp_xml_version"))) {
+    if (attr(srppp, "srppp_xml_version") == 2) {
+      warning("Resolving cultures using srppp_dm objects created from version 2 of the XML files is experimental and does not always work correctly")
+    }
+  }
 
   culture_leaf_df <- attr(attr(srppp, "culture_tree"), "culture_leaf_df")
   corrected_cultures <- FALSE

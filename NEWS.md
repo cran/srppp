@@ -1,4 +1,11 @@
-## version 1.1.0
+## version 2.0.0
+
+- Adapt to the new format of the XML file. The changes are explained at https://www.blv.admin.ch/blv/de/home/zulassung-pflanzenschutzmittel/zugelassene-pflanzenschutzmittel/pflanzenschutzmittelverzeichnis.html
+- Due to UUIDs being used for cross-referencing instead of integer identifiers, the corresponding identifier columns in several tables in the `srppp_dm` objects have changed their type from integer to character.
+- The culture tree constructed from the new version of the XML has changed, among other changes the cultures `allg. Obstbau`, `allg. Feldbau`, `allg. Gemüsebau` and similar are not defined any more as parent cultures of any of the cultures listed. The functionality of `resolve_cultures()` and `alternative_products()`
+is not yet adapted to this new situation and will give a warning when working with a register read in from the new format.
+
+## version 1.1.0 (CRAN release: 2025-07-07)
 
 - Example code and vignettes: To satisfy CRAN policy, fall back to use the register version distributed as test data with the package (see below) in case downloading  or reading from the standard URL fails, instead of throwing an error. This makes the check process on CRAN robust against server outage or a changed URL.
 - Include information on the completeness of the effect against each target organism in the column `type` of the `pests` table of the `srppp_dm` object. Possible types are `PEST_FULL_EFFECT`, `PEST_PARTIAL_EFFECT` and `PEST_SIDE_EFFECT`. In the `obligations` table, include a column `varying_effect`, that contains `TRUE` in case the obligation text indicates that a full effect has not been demonstrated in all cases.

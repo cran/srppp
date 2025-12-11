@@ -63,35 +63,35 @@ test_that("Use rates are correctly converted to g/ha", {
     application_rate_g_per_ha(uses_Misto_12)$rate_g_per_ha,
     c(32, 16, 56) * 830)
 
+  # Products with units_de = "l/ha" and is.na(g_per_L), e.g. Metro 2017, Rhodofix 2012
+  uses_unit_l_ha_no_g_per_L <- tibble::tibble(
+    pNbr = c(rep(5068, 4), rep(5862, 2)),
+    use_nr = c(1, 2, 1, 2, 1, 2),
+    substance_de = c(rep("Ethephon", 2),
+                     rep("Trinexapac-ethyl", 2),
+                     rep("2-(1-naphthyl) acetic acid", 2)),
+    application_area_de = c(rep("Feldbau", 4),
+                            rep("Obstbau", 2)),
+    min_dosage = c(rep(NA,4), 1, 2),
+    max_dosage = c(rep(NA,4), 1.5, NA),
+    min_rate = c(0.6, 1, 0.6, 1, 1000, 1000),
+    max_rate = c(1, 1.2, 1, 1.2, 3000, 3000),
+    units_de = "l/ha",
+    percent = c(rep(22.6, 2), rep(26.6, 2), 1, 1),
+    g_per_L = NA
+  )
+
+  expect_equal(
+    application_rate_g_per_ha(uses_unit_l_ha_no_g_per_L, aggregation = "min",
+                              skip_l_per_ha_without_g_per_L = FALSE
+                              )$rate_g_per_ha,
+    c(135.6, 226.0, 159.6, 266.0,  10.0,  20.0))
+
+  expect_equal(
+    application_rate_g_per_ha(uses_unit_l_ha_no_g_per_L,
+                              skip_l_per_ha_without_g_per_L = FALSE
+    )$rate_g_per_ha,
+    c(226.0, 271.2, 266.0, 319.2,  45.0,  60.0))
+
 })
-
-# Products with units_de = "l/ha" and is.na(g_per_L), e.g. Metro 2017, Rhodofix 2012
-uses_unit_l_ha_no_g_per_L <- tibble::tibble(
-  pNbr = c(rep(5068, 4), rep(5862, 2)),
-  use_nr = c(1, 2, 1, 2, 1, 2),
-  substance_de = c(rep("Ethephon", 2),
-                   rep("Trinexapac-ethyl", 2),
-                   rep("2-(1-naphthyl) acetic acid", 2)),
-  application_area_de = c(rep("Feldbau", 4),
-                          rep("Obstbau", 2)),
-  min_dosage = c(rep(NA,4), 1, 2),
-  max_dosage = c(rep(NA,4), 1.5, NA),
-  min_rate = c(0.6, 1, 0.6, 1, 1000, 1000),
-  max_rate = c(1, 1.2, 1, 1.2, 3000, 3000),
-  units_de = "l/ha",
-  percent = c(rep(22.6, 2), rep(26.6, 2), 1, 1),
-  g_per_L = NA
-)
-
-expect_equal(
-  application_rate_g_per_ha(uses_unit_l_ha_no_g_per_L, aggregation = "min",
-                            skip_l_per_ha_without_g_per_L = FALSE
-                            )$rate_g_per_ha,
-  c(135.6, 226.0, 159.6, 266.0,  10.0,  20.0))
-
-expect_equal(
-  application_rate_g_per_ha(uses_unit_l_ha_no_g_per_L,
-                            skip_l_per_ha_without_g_per_L = FALSE
-  )$rate_g_per_ha,
-  c(226.0, 271.2, 266.0, 319.2,  45.0,  60.0))
 

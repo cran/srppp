@@ -139,7 +139,7 @@ example_dataset_5 <- data.frame(
  resolve_cultures(example_dataset_5, sr)
 
 # Illustrate the resolution of "Obstbau allg.", which does not have children in
-# the XML files, but which should have children, because Obstbau allg. is 
+# the XML files, but which should have children, because Obstbau allg. is
 # not a leaf culture.
 example_dataset_6 <- data.frame(
   substance_de = c("Schwefel"),

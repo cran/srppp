@@ -31,6 +31,6 @@ Read an XML version of the Swiss Register of Plant Protection Products
 \examples{
 # Try to get the current SRPPP as available from the FOAG website
 \donttest{
-srppp_cur <- try(srppp_xml_get())
+srppp_xml_cur <- try(srppp_xml_get())
 }
 }
