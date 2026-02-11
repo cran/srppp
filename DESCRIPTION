@@ -1,8 +1,8 @@
 Package: srppp
 Type: Package
 Title: Read the Swiss Register of Plant Protection Products
-Version: 2.0.0
-Date: 2025-12-10
+Version: 2.0.2
+Date: 2026-02-11
 Authors@R: c(
   person("Daniel", "Baumgartner", role = "ctb",
     comment = "Provided feedback, explanations and background information"),
@@ -38,7 +38,7 @@ Encoding: UTF-8
 Language: en-GB
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2025-12-11 06:37:26 UTC; jranke
+Packaged: 2026-02-11 18:12:39 UTC; jranke
 Author: Daniel Baumgartner [ctb] (Provided feedback, explanations and
     background information),
   Marcel Mathis [rev, ctb],
@@ -49,4 +49,4 @@ Author: Daniel Baumgartner [ctb] (Provided feedback, explanations and
   Agroscope [cph]
 Maintainer: Johannes Ranke <johannes.ranke@agroscope.admin.ch>
 Repository: CRAN
-Date/Publication: 2025-12-11 07:20:02 UTC
+Date/Publication: 2026-02-11 19:40:02 UTC

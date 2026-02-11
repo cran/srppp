@@ -1,3 +1,12 @@
+## version 2.0.2
+
+- Include the latest XML file published the registration authorities instead of the file from December 2025, because in the current version the information to correctly read the culture tree is included again.
+- `resolve_cultures()`: The warning that was issued when the function was used with the new format was removed, as everything seems to be working fine again.
+
+## version 2.0.1 (only published on github)
+
+- Get the substance type (i.e. ACTIVE_INGREDIENT, ADDITIVE_TO_DECLARE, SAFENER, SYNERGIST) of ingredients also from XML files in the new format. Thanks to Alexandre Gurba (FOEN) for reporting the problem.
+
 ## version 2.0.0
 
 - Adapt to the new format of the XML file. The changes are explained at https://www.blv.admin.ch/blv/de/home/zulassung-pflanzenschutzmittel/zugelassene-pflanzenschutzmittel/pflanzenschutzmittelverzeichnis.html

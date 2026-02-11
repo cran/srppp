@@ -12,14 +12,10 @@ test_that("Alternative products are found", {
     missing = TRUE, resolve_cultures = TRUE)
   expect_equal(nrow(lambda_delta_gaps_resolved), 110L)
 
-  # resolve_cultures() is called twice in this example, therefore we expect two warnings
-  expect_warning({
-    expect_warning({
-      lambda_delta_gaps_resolved_2 <- alternative_products(srppp_test_2, c("Lambda-Cyhalothrin", "Deltamethrin"),
-        missing = TRUE, resolve_cultures = TRUE)
-    }, "experimental")
-  }, "experimental")
-  expect_equal(nrow(lambda_delta_gaps_resolved_2), 165L)
+  # Repeat with new format
+  lambda_delta_gaps_resolved_2 <- alternative_products(srppp_test_2, c("Lambda-Cyhalothrin", "Deltamethrin"),
+    missing = TRUE, resolve_cultures = TRUE)
+  expect_equal(nrow(lambda_delta_gaps_resolved_2), 110L)
 
   lambda_delta_gaps_it <- alternative_products(srppp_test_1, c("Lambda-Cialotrina", "Deltametrina"),
     missing = TRUE, lang = "it", resolve_cultures = FALSE)

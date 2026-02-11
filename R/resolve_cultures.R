@@ -142,12 +142,6 @@ resolve_cultures <- function(dataset, srppp,
   correct_culture_names = TRUE, resolve_culture_allg = TRUE)
 {
 
-  if (!is.null(attr(srppp, "srppp_xml_version"))) {
-    if (attr(srppp, "srppp_xml_version") == 2) {
-      warning("Resolving cultures using srppp_dm objects created from version 2 of the XML files is experimental and does not always work correctly")
-    }
-  }
-
   culture_leaf_df <- attr(attr(srppp, "culture_tree"), "culture_leaf_df")
   corrected_cultures <- FALSE
 
