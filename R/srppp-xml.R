@@ -31,7 +31,7 @@ srppp_xml_get.NULL <- function(from, ...)
 {
   from <- srppp_xml_url
   path <- tempfile(fileext = "zip")
-  download.file(from, path)
+  download.file(from, path, quiet = TRUE)
 
   srppp_xml_get_from_path(path, from)
 }
@@ -41,7 +41,7 @@ srppp_xml_get.NULL <- function(from, ...)
 srppp_xml_get.character <- function(from, ...)
 {
   path <- tempfile(fileext = "zip")
-  download.file(from, path)
+  download.file(from, path, quiet = TRUE)
 
   srppp_xml_get_from_path(path, from)
 }

@@ -1,3 +1,4 @@
+utils::globalVariables(c("rate_min", "rate_max", "dosage_min", "dosage_max"))
 #' Calculate application rates for active ingredients
 #'
 #' An application rate in g active substance/ha is calculated from information
@@ -93,16 +94,20 @@ application_rate_g_per_ha <- function(product_uses,
         min_dosage, max_dosage)
       ) |>
     mutate(
-      rate = case_when(
-        aggregation == "mean" ~ (rate_min + rate_max)/2,
-        aggregation == "max" ~ rate_max,
-        aggregation == "min" ~ rate_min
-      ),
-      dosage = case_when(
-        aggregation == "mean" ~ (dosage_min + dosage_max)/2,
-        aggregation == "max" ~ dosage_max,
-        aggregation == "min" ~ dosage_min
-      )
+      rate = if (aggregation == "mean") {
+        (rate_min + rate_max)/2
+      } else if (aggregation == "max") {
+        rate_max
+      } else {
+        rate_min
+      },
+      dosage = if (aggregation == "mean") {
+        (dosage_min + dosage_max)/2
+      } else if (aggregation == "max") {
+        dosage_max
+      } else {
+        dosage_min
+      }
     )
 
   active_rates <- rates_dosages |>

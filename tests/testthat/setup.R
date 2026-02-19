@@ -1,11 +1,3 @@
-# Read in the current SRPPP from the XML URL
-# Interception of the system message by sink() was taken from https://stackoverflow.com/a/66139071
-nullcon <- file(nullfile(), open = "wb")
-sink(nullcon, type = "message")
-srppp_cur <- srppp_dm()
-sink(type = "message")
-close(nullcon)
-
 # Read in the test datasets included in the package
 test_data_1 <- system.file("testdata/Daten_Pflanzenschutzmittelverzeichnis_2024-12-16.zip",
   package = "srppp")
